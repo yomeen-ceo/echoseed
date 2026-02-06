@@ -7,6 +7,7 @@
           alt="Header Banner"
           class="full-width"
           style="height: auto; display: block;"
+          @click="$router.push({ name: 'home' })"
         />
       </q-header>
       <q-footer>

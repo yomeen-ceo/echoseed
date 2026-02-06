@@ -42,6 +42,6 @@ cd \GAE_iCoin\set  GAE-order路徑
 npm run build
 copy app.yaml functions\set\dist
 cd functions\set\dist
-gcloud app deploy -q
+gcloud app deploy --version=v2 --quiet
 ```
 
