@@ -11,6 +11,15 @@
         action="https://yomeen-payuni-api-dot-i-food-project-v1.an.r.appspot.com/v1/upp/create-order"
       >
         <div class="form-group">
+          <label>訂單ID</label>
+          <input
+            type="text"
+            name="OrderID"
+            v-model="OrderID"
+          />
+        </div>
+
+        <div class="form-group">
           <label>商品名稱</label>
           <input
             type="text"
@@ -118,6 +127,7 @@ export default {
   name: 'PageHome',
   data () {
     return {
+      OrderID: 'y123',
       prodDesc: '測試商品',
       tradeAmt: 100,
       ReturnURL: 'https://'
@@ -134,9 +144,14 @@ export default {
 
       const params = new URLSearchParams(qs)
 
+      const qOrderID = params.get('OrderID')
       const qProdDesc = params.get('prodDesc')
       const qTradeAmt = params.get('tradeAmt')
       const qReturnURL = params.get('ReturnURL')
+
+      if (qOrderID) {
+        this.OrderID = qOrderID
+      }
 
       if (qProdDesc) {
         this.prodDesc = qProdDesc

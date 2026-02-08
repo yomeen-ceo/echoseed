@@ -19,7 +19,9 @@ const routes = [
     path: '/payuniOrder',
     component: () => import('layouts/ShowLayout.vue'),
     children: [
-      { name: 'payuniOrder', path: '', component: () => import('pages/payuni/Home.vue') }
+      { name: 'payuniOrderAuto', path: 'auto', component: () => import('pages/payuni/Home.vue') },
+      { name: 'payuniOrder', path: '', component: () => import('pages/payuni/PayuniOrder.vue') },
+      { name: 'payResult', path: 'payResult', component: () => import('pages/payuni/PayResult.vue') }
     ]
   },
 
