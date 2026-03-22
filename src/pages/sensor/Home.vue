@@ -789,7 +789,7 @@ export default {
       if (!h.length) return []
 
       const avg = h.reduce((a, b) => a + b, 0) / h.length
-      const AMPLIFY = 2 // ⭐ 這就是你要的 20 倍
+      const AMPLIFY = 0.5 // ⭐ 這就是你要的 20 倍
 
       return h.map(v => {
         const amplified = avg + (v - avg) * AMPLIFY
