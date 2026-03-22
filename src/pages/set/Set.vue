@@ -46,7 +46,7 @@
       </div>
       <div class='my-card q-pa-md'>
         <img
-          src="..\..\statics\EchoSeed_250806-03.svg"
+          src="../../statics/EchoSeed_250806-03.svg"
           alt="Header Banner"
           class="full-width"
           style="height: auto; display: block;"
@@ -216,7 +216,7 @@
       </div>
       <div class='my-card q-pa-md'>
         <img
-          src="..\..\statics\EchoSeed_250806-04.svg"
+          src="../../statics/EchoSeed_250806-04.svg"
           alt="Header Banner"
           class="custom-width-img"
           style="height: auto; display: block;"
