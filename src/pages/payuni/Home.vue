@@ -1,174 +1,134 @@
 <template>
-  <q-page class="page">
-    <div class="card">
-      <h2>
-        確認付款
-      </h2>
+  <q-page class="q-pa-md flex flex-center bg-grey-2">
+    <q-card class="full-width" style="max-width: 520px;">
+      <q-card-section>
+        <div class="text-h6">模擬 EchoSeed 下單</div>
+        <div class="text-caption text-grey-7 q-mt-xs">
+          模擬從 echoseed 前端發起付款，交易完成後 redirect 回 echoseed 的 payResult 頁面
+        </div>
+      </q-card-section>
 
-      <form
-        ref="payForm"
+      <q-separator />
+
+      <!-- 流程說明 -->
+      <q-card-section>
+        <q-banner rounded class="bg-blue-1 text-blue-9">
+          流程：
+          此頁面 → payuni-api 建單 → PAYUNi 付款 →
+          payuni-api 解密 → redirect 到 echoseed /payuniOrder/payResult
+        </q-banner>
+      </q-card-section>
+
+      <q-form
         method="POST"
         action="https://yomeen-payuni-api-dot-i-food-project-v1.an.r.appspot.com/v1/upp/create-order"
+        class="q-gutter-md"
       >
-        <div class="form-group">
-          <label>商品名稱</label>
-          <input
-            type="text"
-            name="ProdDesc"
-            v-model="prodDesc"
-          />
-        </div>
+        <q-card-section>
 
-        <div class="form-group">
-          <label>金額（元）</label>
-          <input
-            type="number"
-            name="TradeAmt"
+          <q-input
+            v-model="merTradeNo"
+            name="MerTradeNo"
+            label="訂單編號（選填）"
+            outlined
+            placeholder="留空則自動產生"
+          />
+
+          <q-input
+            v-model="prodDesc"
+            name="ProdDesc"
+            label="商品名稱"
+            outlined
+          />
+
+          <q-input
             v-model.number="tradeAmt"
+            name="TradeAmt"
+            type="number"
+            label="金額（元）"
+            outlined
             min="1"
           />
-        </div>
 
-        <div class="form-group">
-          <label>回傳URL</label>
-          <input
-            type="text"
-            name="ReturnURL"
-            v-model="ReturnURL"
+          <q-select
+            v-model="isSandbox"
+            name="isSandbox"
+            label="環境"
+            outlined
+            :options="sandboxOptions"
+            emit-value
+            map-options
           />
-        </div>
 
-        <!-- 保留按鈕，方便測試或除錯 -->
-        <button type="submit">
-          送出付款
-        </button>
-      </form>
-    </div>
+          <q-input
+            v-model="usrMail"
+            name="UsrMail"
+            type="email"
+            label="UsrMail"
+            outlined
+          />
+
+          <!-- clientReturnURL -->
+          <q-select
+            v-model="clientReturnURL"
+            label="交易結果頁 (clientReturnURL)"
+            outlined
+            :options="returnUrlOptions"
+            emit-value
+            map-options
+          />
+
+          <q-input
+            v-model="clientReturnURL"
+            name="clientReturnURL"
+            outlined
+            placeholder="或自行輸入 URL"
+          />
+
+        </q-card-section>
+
+        <q-separator />
+
+        <q-card-actions align="right">
+          <q-btn
+            color="primary"
+            type="submit"
+            label="送出付款"
+            unelevated
+            class="full-width"
+          />
+        </q-card-actions>
+      </q-form>
+    </q-card>
   </q-page>
 </template>
 
-<style lang="scss" scoped>
-.page {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: #f5f5f5;
-  min-height: 100vh;
-  box-sizing: border-box;
-}
+<script setup>
+import { ref } from 'vue'
 
-.card {
-  background: #ffffff;
-  border-radius: 8px;
-  padding: 24px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
+const merTradeNo = ref('')
+const prodDesc = ref('EchoSeed 測試商品')
+const tradeAmt = ref(100)
+const isSandbox = ref(false)
+const usrMail = ref('admin@yomeen.com')
 
-h2 {
-  color: #333;
-  margin-top: 0;
-}
+const clientReturnURL = ref(
+  'https://echoseed-dot-i-food-project-v1.an.r.appspot.com/payuniOrder/payResult'
+)
 
-.form-group {
-  margin-bottom: 16px;
-}
+const sandboxOptions = [
+  { label: '正式區', value: false },
+  { label: '測試區 (Sandbox)', value: true }
+]
 
-label {
-  display: block;
-  margin-bottom: 6px;
-  color: #555;
-  font-weight: 500;
-}
-
-input {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-  box-sizing: border-box;
-}
-
-input:focus {
-  outline: none;
-  border-color: #4caf50;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  background: #4caf50;
-  color: #ffffff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  margin-top: 8px;
-}
-
-/* 你原本就有的 */
-.hasFooterBar {
-  margin-bottom: 50px;
-}
-</style>
-
-<script>
-export default {
-  name: 'PageHome',
-  data () {
-    return {
-      prodDesc: '測試商品',
-      tradeAmt: 100,
-      ReturnURL: 'https://'
-    }
+const returnUrlOptions = [
+  {
+    label: '不 redirect（使用本專案 payment-result 頁面）',
+    value: ''
   },
-  methods: {
-    applyQueryParams () {
-      const search = window.location.search
-      const hash = window.location.hash || ''
-      const hashQuery = hash.includes('?') ? hash.slice(hash.indexOf('?')) : ''
-
-      const qs = search && search !== '?' ? search : hashQuery
-      if (!qs) return
-
-      const params = new URLSearchParams(qs)
-
-      const qProdDesc = params.get('prodDesc')
-      const qTradeAmt = params.get('tradeAmt')
-      const qReturnURL = params.get('ReturnURL')
-
-      if (qProdDesc) {
-        this.prodDesc = qProdDesc
-      }
-
-      if (qTradeAmt) {
-        const n = Number(qTradeAmt)
-        if (!Number.isNaN(n) && n > 0) {
-          this.tradeAmt = n
-        }
-      }
-
-      if (qReturnURL) {
-        this.ReturnURL = qReturnURL
-      }
-    },
-
-    autoSubmit () {
-      // 等 DOM 與 v-model 同步完成後再送出
-      this.$nextTick(() => {
-        if (this.$refs.payForm) {
-          this.$refs.payForm.submit()
-        }
-      })
-    }
-  },
-  mounted () {
-    // 1. 先吃 URL 參數
-    this.applyQueryParams()
-
-    // 2. 直接送出付款
-    // this.autoSubmit()
+  {
+    label: 'EchoSeed payResult',
+    value: 'https://echoseed-dot-i-food-project-v1.an.r.appspot.com/payuniOrder/payResult'
   }
-}
+]
 </script>

@@ -1,6 +1,6 @@
 # Yomeen
 
-yomeen at app engine
+yomeen at app engine （此專案是node v16環境）
 
 ## Only for Google App Engine
 
