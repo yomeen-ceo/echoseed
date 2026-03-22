@@ -3,7 +3,7 @@
     <q-layout view="lhh lpr lff" class=“no-pointer-events”>
       <q-header elevated class="bg-white text-grey-8">
         <img
-          src="..\statics\EchoSeed_250806_Header.svg"
+          src="../statics/EchoSeed_250806_Header.svg"
           alt="Header Banner"
           class="full-width"
           style="height: auto; display: block;"
@@ -13,7 +13,7 @@
       <q-footer>
         <img
           @click="showDialog"
-          src="..\statics\EchoSeed_250806_Footer.svg"
+          src="../statics/EchoSeed_250806_Footer.svg"
           alt="Header Banner"
           class="full-width"
           style="height: auto; display: block;"
