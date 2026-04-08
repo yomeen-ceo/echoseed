@@ -930,7 +930,7 @@ export default {
         //   BIG: 1,
         //   ID: 8001
         // })
-        const res = await this.axios.post('https://sensor-api-uki7.onrender.com/v1/sensor', {
+        const res = await this.axios.post('https://render-api-sample-jidg.onrender.com/v1/sensor', {
           OFFICE_GROUP: '0001',
           BIG: 1,
           ID: 8001
