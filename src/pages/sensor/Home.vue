@@ -927,13 +927,13 @@ export default {
         // 請改成你的實際 API
         // const res = await this.axios.post('http://localhost:5000/v1/sensor', {
         //   OFFICE_GROUP: '0001',
-        //   BIG: 1,
-        //   ID: 8001
+        //   BIG: '1',
+        //   ID: '0001'
         // })
-        const res = await this.axios.post('https://render-api-sample-jidg.onrender.com/v1/sensor', {
+        const res = await this.axios.post('https://sensor-api-dot-i-food-project-v1.an.r.appspot.com/v1/sensor', {
           OFFICE_GROUP: '0001',
           BIG: 1,
-          ID: 8001
+          ID: '0001'
         })
         this.result = res.data
         // demo：這裡先用本地模擬數值微幅波動

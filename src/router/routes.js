@@ -30,7 +30,9 @@ const routes = [
     path: '/sensor',
     component: () => import('layouts/ShowLayout.vue'),
     children: [
-      { name: 'sensor', path: '', component: () => import('pages/sensor/Home.vue') }
+      { name: 'layBow', path: 'layBow', component: () => import('pages/home/LayBow.vue') },
+      { name: 'sensor', path: '', component: () => import('pages/sensor/Home.vue') },
+      { name: 'dept', path: 'dept', component: () => import('pages/sensor/DeptAbnormalProcess.vue') }
     ]
   },
 
